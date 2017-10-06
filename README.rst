@@ -20,6 +20,14 @@ Dependencies, Requirements
  * Python 3 is not tested yet..
 
 
+TODOs
+-----
+
+ * Test for Python 3 compat..
+
+ * Upload to PyPI
+
+
 Basic Idea
 ----------
 
