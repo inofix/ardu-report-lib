@@ -13,17 +13,13 @@ Dependencies, Requirements
 
  * Unix/Linux
 
- * Python 2.7
+ * Python 2.7, 3.3, 3.4, 3.5
 
-  - see requrements.txt
-
- * Python 3 is not tested yet..
+  - see requirements.txt for the dependencies
 
 
 TODOs
 -----
-
- * Test for Python 3 compat..
 
  * Upload to PyPI
 
