@@ -70,6 +70,7 @@ class TestDataReport(unittest.TestCase):
         self.assertEqual(self.reporter.credentials["user"], u)
         self.assertEqual(self.reporter.credentials["password"], p)
 
-        b = b64encode(u + ":" + p).decode("ascii")
+        c = u + ":" + p
+        b = b64encode(c.encode()).decode("ascii")
         self.assertEqual(self.reporter.credentials["base64"], b)
 

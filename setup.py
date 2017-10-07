@@ -19,7 +19,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='ardu-report-lib',
-    version='0.9.dev1+ge62996f',
+    version='0.9.dev11+g29637dc',
     description='Get sensor data over the serial line and send it to an URL (JSON).',
     long_description=long_description,
 
@@ -46,11 +46,10 @@ setup(
 
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
-# TODO
-#        'Programming Language :: Python :: 3',
-#        'Programming Language :: Python :: 3.3',
-#        'Programming Language :: Python :: 3.4',
-#        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
 
     keywords='arduino sensor json',

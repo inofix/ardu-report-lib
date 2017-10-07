@@ -68,13 +68,11 @@ class TestDataStore(unittest.TestCase):
 
         result = self.store.get_text()
         rs = result.split("\n")
-        r0 = re.sub(":.. ====", ":XX ====", rs[0].encode("ascii"))
-        r1 = rs[1]
-        r2 = rs[2]
+        r0 = re.sub(":.. ====", ":XX ====", rs[0])
 
         self.assertEqual(t0, r0)
-        self.assertEqual(t1, r1)
-        self.assertEqual(t2, r2)
+        self.assertTrue(t1 in rs)
+        self.assertTrue(t2 in rs)
 
     def test_get_tranlated_data(self):
         with open("./schemas/meta-schema.json", "r") as fh:
@@ -89,11 +87,11 @@ class TestDataStore(unittest.TestCase):
         j = '[ {"id":"a","value":"8","unit":"m"}, {"id":"b","value":"9"} ]'
         self.store.register_json(j)
         d = self.store.get_translated_data()
-        self.assertTrue(d.has_key('a'))
-        self.assertTrue(d.has_key('b'))
-        self.assertTrue(d['a'].has_key('ourVeryCustomSensorName'))
+        self.assertTrue('a' in d)
+        self.assertTrue('b' in d)
+        self.assertTrue('ourVeryCustomSensorName' in d['a'])
         self.assertTrue(d['a']['ourVeryCustomSensorName'] == 'a')
-        self.assertTrue(d['b'].has_key('sensorValue'))
+        self.assertTrue('sensorValue' in d['b'])
 
     def test_get_json(self):
         j = '[{"id":"foo","value":"777"}]'

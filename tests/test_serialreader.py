@@ -20,11 +20,11 @@ class TestSerialReader(unittest.TestCase):
         # whether readline() timeouts on the dummy and if run() terminats
         # even if no '\n' is received..
         j = 'df'
-        self.reader.device.write(j)
+        self.reader.device.write(j.encode())
         self.reader.run()
 
     def test_single_run(self):
-        self.reader.device.write(self.test_json)
+        self.reader.device.write(self.test_json.encode())
         self.reader.run()
         self.assertEqual("777", self.store.data["light_value"]["value"])
 
@@ -67,9 +67,9 @@ class TestSerialReader(unittest.TestCase):
         third_reader = serialreader.SerialReader(None, 9600, a, 200)
         third_reader.device = serial.serial_for_url("loop://", timeout=300)
 
-        first_reader.device.write(' \n\n[ \n  {"id":"bar","value":"777"} \n] \n')
-        second_reader.device.write(' \n\n[ \n  {"id":"foo","value":"666"} \n] \n')
-        first_reader.device.write(' \n\n[ \n  {"id":"foo","value":"888"} \n] \n')
+        first_reader.device.write(' \n\n[ \n  {"id":"bar","value":"777"} \n] \n'.encode())
+        second_reader.device.write(' \n\n[ \n  {"id":"foo","value":"666"} \n] \n'.encode())
+        first_reader.device.write(' \n\n[ \n  {"id":"foo","value":"888"} \n] \n'.encode())
         first_reader.start()
         second_reader.start()
         third_reader.start()

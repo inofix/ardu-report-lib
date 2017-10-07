@@ -77,7 +77,7 @@ class DataStore(object):
             # search for the keys and change them if the schema requests
             for k in s[self.items][self.properties]:
                 v = s[self.items][self.properties][k]
-                if v.has_key(self.key):
+                if self.key in v:
                     if v[self.key] == self.id:
                         self.id_key = k
                     elif v[self.key] == self.value:
@@ -103,7 +103,7 @@ class DataStore(object):
             # search for the keys and change them if the schema requests
             for k in s[self.items][self.properties]:
                 v = s[self.items][self.properties][k]
-                if v.has_key(self.key):
+                if self.key in v:
                     t = v[self.key]
                     self.translation_keys[t] = k
         elif out_schema:
@@ -126,18 +126,18 @@ class DataStore(object):
                 self.data[v[self.id_key]][self.value_key] = \
                                             v[self.value_key]
                 # add the optional well known entries if provided
-                if v.has_key(self.unit_key):
+                if self.unit_key in v:
                     self.data[v[self.id_key]][self.unit_key] = \
                                             v[self.unit_key]
-                if v.has_key(self.threshold_key):
+                if self.threshold_key in v:
                     self.data[v[self.id_key]][self.threshold_key] = \
                                             v[self.threshold_key]
                 # add any further entries found
                 for k in self.other_keys:
-                    if v.has_key(k):
+                    if k in v:
                         self.data[v[self.id_key]][k] = v[k]
                 # add the custom sensor time
-                if v.has_key(self.sensor_time_key):
+                if self.sensor_time_key in v:
                     self.data[v[self.sensor_time_key]][self.sensor_time_key] = \
                                             v[self.sensor_time_key]
                 # last: add the time the data was received (overwriting any
@@ -145,11 +145,11 @@ class DataStore(object):
                 self.data[v[self.id_key]][self.time_key] = \
                                             self.last_data_timestamp
         except KeyError as e:
-            print "The main key was not found on the serial input line: " + \
-                    str(e)
+            print("The main key was not found on the serial input line: " + \
+                    str(e))
         except ValueError as e:
-            print "No valid JSON string received. Waiting for the next turn."
-            print "The error was: " + str(e)
+            print("No valid JSON string received. Waiting for the next turn.")
+            print("The error was: " + str(e))
 
     def get_text(self):
         """
@@ -159,10 +159,10 @@ class DataStore(object):
         for k in self.data:
             t += k + " " + str(self.data[k][self.value_key])
             u = ""
-            if self.data[k].has_key(self.unit_key):
+            if self.unit_key in self.data[k]:
                 u = self.data[k][self.unit_key]
                 t += u
-            if self.data[k].has_key(self.threshold_key):
+            if self.threshold_key in self.data[k]:
                 if (self.data[k][self.threshold_key] < \
                                     self.data[k][self.value_key]):
                     t += " !Warning: Value is over threshold: " + \
@@ -170,7 +170,7 @@ class DataStore(object):
                 else:
                     t += " (" + str(self.data[k][self.threshold_key]) + u + ")"
             for l in self.other_keys:
-                if self.data[k].has_key(l):
+                if l in self.data[k]:
                     t += " " + self.data[k][l]
             t += "\n"
         return t

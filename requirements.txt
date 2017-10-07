@@ -1,4 +1,6 @@
+httplib2
 jsonschema
 pyserial
 requests
 unittest2
+urllib3
