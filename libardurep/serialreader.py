@@ -12,6 +12,7 @@ COPYRIGHT:    (C) 2017 by Michael Lustenberger and INOFIX GmbH
 import json
 import serial
 import threading
+from time import sleep
 
 class SerialReader(threading.Thread):
     """
@@ -38,6 +39,16 @@ class SerialReader(threading.Thread):
         except serial.serialutil.SerialException:
             print("Could not connect to the serial line at " + self.device_name)
 
+    def age(self):
+        """
+        Get closer to your EOL
+        """
+        # 0 means this composer will never decompose
+        if self.rounds == 1:
+            self.do_run = False
+        elif self.rounds > 1:
+            self.rounds -= 1
+
     def run(self):
         """
         Open a connection over the serial line and receive data lines
@@ -47,29 +58,32 @@ class SerialReader(threading.Thread):
         try:
             data = ""
             while (self.do_run):
-                if (self.device.inWaiting() > 1):
-                    l = self.device.readline()[:-2]
-                    l = l.decode("UTF-8")
+                try:
+                    if (self.device.inWaiting() > 1):
+                        l = self.device.readline()[:-2]
+                        l = l.decode("UTF-8")
 
-                    if (l == "["):
-                        # start recording
-                        data = "["
-                    elif (l == "]") and (len(data) > 4) and (data[0] == "["):
-                        # now parse the input
-                        data = data + "]"
-                        self.store.register_json(data)
-                        if self.rounds == 1:
-                            self.do_run = False
-                        elif self.rounds > 1:
-                            self.rounds -= 1
-                    elif (l[0:3] == "  {"):
-                        # this is a data line
-                        data = data + " " + l
-                else:
-                    if self.rounds == 1:
-                        self.do_run = False
-                    elif self.rounds > 1:
-                        self.rounds -= 1
+                        if (l == "["):
+                            # start recording
+                            data = "["
+                        elif (l == "]") and (len(data) > 4) and (data[0] == "["):
+                            # now parse the input
+                            data = data + "]"
+                            self.store.register_json(data)
+                            self.age()
+                        elif (l[0:3] == "  {"):
+                            # this is a data line
+                            data = data + " " + l
+                    else:
+                        # this is a slow interface - give it some time
+                        sleep(1)
+                        # then count down..
+                        self.age()
+                except (UnicodeDecodeError, ValueError):
+                    # only accepting unicode: throw away the whole bunch
+                    data = ""
+                    # and count down the exit condition
+                    self.age()
 
         except serial.serialutil.SerialException:
             print("Could not connect to the serial line at " + self.device_name)

@@ -1,4 +1,15 @@
 #!/bin/sh
+# Licensed under the "Fair License (Fair)" (2015, Fair License: http://fairlicense.org/) (or any other fucking license that is equivalent...)
+# (C) 2017 Michael Lustenberger (mic at inofix.ch)
+# Usage of the works is permitted provided that this instrument is retained with the works, so that any entity that uses the works is notified of this instrument.
+# DISCLAIMER: THE WORKS ARE WITHOUT WARRANTY.
+#
+# Intended Usage:
+# * Tag your git repo with e.g. `git tag -a 0.1`
+# * Copy this script to your .git/hooks/ (and mark it executable..)
+# * Any time you want to manually set a version, commit all changes,
+#   set the version in $version_file/$setup_file, tag the repo again
+#   and commit the change of the version
 # If someone has a simpler, yet equally powerful, idea, please send it to
 # me (mic at inofix.ch).
 
