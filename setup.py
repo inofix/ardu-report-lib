@@ -1,7 +1,7 @@
 """Setup the ardu-report-lib library module.
 
 See:
-https://github.com/zwischenloesung/ardu-report-lib
+https://github.com/inofix/ardu-report-lib
 
 Note:
 Based on the https://github.com/pypa/sampleproject/blob/master/setup.py.
@@ -19,11 +19,11 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='ardu-report-lib',
-    version='1.0.2',
+    version='1.0.2.dev2+g2246e0b',
     description='Get sensor data over the serial line and send it to an URL (JSON).',
     long_description=long_description,
 
-    url='https://github.com/zwischenloesung/ardu-report-lib',
+    url='https://github.com/inofix/ardu-report-lib',
     author='Michael Lustenberger',
     author_email='mic@inofix.ch',
 
@@ -52,7 +52,7 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
 
-    keywords='arduino sensor json',
+    keywords='arduino sensor serial json',
 
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
