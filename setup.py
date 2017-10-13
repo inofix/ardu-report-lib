@@ -19,7 +19,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='ardu-report-lib',
-    version='1.0.2.dev3+g83cfb7d',
+    version='1.0.2.dev4+gda9cdd7',
     description='Get sensor data over the serial line and send it to an URL (JSON).',
     long_description=long_description,
 
@@ -56,7 +56,13 @@ setup(
 
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
-    install_requires=['jsonschema', 'pyserial', 'requests'],
+    install_requires=[
+        'httplib2',
+        'jsonschema',
+        'pyserial',
+        'requests',
+        'urllib3',
+    ],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
@@ -64,7 +70,7 @@ setup(
     # $ pip install -e .[dev,test]
     extras_require={
 #        'dev': ['check-manifest'],
-#        'test': ['coverage'],
+        'test': ['unittest2'],
     },
 
     package_data={
